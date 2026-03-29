@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -23,8 +25,7 @@ return new class extends Migration
         });
 
         Schema::table('custom_modules', function (Blueprint $table) {
-            $table->uuid('user_profile_id')->after('id');
-            $table->foreign('user_profile_id')->references('id')->on('user_profiles');
+            $table->foreignUuid('user_profile_id')->after('id')->constrained('user_profiles')->onDelete('cascade');
         });
     }
 

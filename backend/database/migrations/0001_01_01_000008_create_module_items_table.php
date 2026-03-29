@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('module_items', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('module_id')->nullable();
-            $table->foreign('module_id')->references('id')->on('modules')->nullOnDelete();
+            $table->foreignUuid('module_id')->nullable()->constrained('modules')->nullOnDelete();
             $table->json('name');
             $table->integer('position')->default(0);
             $table->string('icon')->nullable();
@@ -22,8 +23,7 @@ return new class extends Migration
         });
 
         Schema::table('custom_module_items', function (Blueprint $table) {
-            $table->uuid('module_item_id')->after('id');
-            $table->foreign('module_item_id')->references('id')->on('module_items');
+            $table->foreignUuid('module_item_id')->after('id')->constrained('module_items')->onDelete('cascade');
         });
     }
 

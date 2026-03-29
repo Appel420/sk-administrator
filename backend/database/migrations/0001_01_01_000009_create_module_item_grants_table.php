@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('module_item_grants', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('module_item_id');
-            $table->foreign('module_item_id')->references('id')->on('module_items');
+            $table->foreignUuid('module_item_id')->constrained('module_items')->onDelete('cascade');
             $table->boolean('can_create')->default(false);
             $table->boolean('can_read')->default(true);
             $table->boolean('can_update')->default(false);

@@ -5,6 +5,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
-:root {}
+@theme {
+    --font-sans: 'Work Sans', sans-serif;
+    --font-weight-normal: 500;
+    --font-weight-medium: 600;
+}
 
-.dark {}
+main {
+    margin: 0;
+    padding: 0;
+}
